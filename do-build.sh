@@ -2973,6 +2973,77 @@ function portal_do_build () {
 
 
 ################################################################################
+## Model / model_do_help
+################################################################################
+
+function sys_help () {
+
+	echo "################################################################################"
+	echo "## [Controller] sys_help"
+	echo "################################################################################"
+
+	echo "==== usage ===="
+
+cat << __EOF__
+
+##
+## ## Action
+##
+
+./do-build.sh help
+sudo ./do-build.sh help
+
+
+sudo ./do-build.sh
+sudo ./do-build.sh build
+
+sudo ./do-build.sh prepare
+sudo ./do-build.sh clean
+
+sudo ./do-build.sh mount
+sudo ./do-build.sh chroot
+sudo ./do-build.sh unmount
+
+sudo ./do-build.sh create-full-system
+sudo ./do-build.sh archive-system-to-iso
+
+__EOF__
+
+}
+
+function mod_help () {
+
+	sys_help
+
+}
+
+function model_do_help () {
+
+	echo "################################################################################"
+	echo "## [Main] model_do_help"
+	echo "################################################################################"
+
+	echo "==== help ===="
+
+	mod_help
+
+}
+
+
+################################################################################
+## Portal / protal_do_help
+################################################################################
+
+function portal_do_help () {
+
+	model_do_help
+
+}
+
+
+
+
+################################################################################
 ## Model / model_do_test
 ################################################################################
 
@@ -3077,6 +3148,12 @@ function action_build () {
 
 }
 
+function action_help () {
+
+	portal_do_help
+
+}
+
 function action_test () {
 
 	portal_do_test
@@ -3101,9 +3178,27 @@ function main_run_action () {
 		echo "################################################################################"
 
 		echo "==== Run Action Example ===="
-		echo "sudo ./do-build.sh prepare"
-		echo "sudo ./do-build.sh build"
-		echo "sudo ./do-build.sh clean"
+
+cat << __EOF__
+
+##
+## ## Main Action
+##
+
+sudo ./do-build.sh prepare
+sudo ./do-build.sh build
+sudo ./do-build.sh clean
+
+
+##
+## ## Or Read More Action ...
+##
+
+./do-build.sh help
+sudo ./do-build.sh help
+
+
+__EOF__
 
 		exit 1
 
