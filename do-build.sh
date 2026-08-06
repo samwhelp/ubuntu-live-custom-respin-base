@@ -2480,7 +2480,7 @@ function sys_create_filesystem_manifest_desktop_to_isodir () {
 function sys_clean () {
 
 	echo "################################################################################"
-	echo "## [Main] sys_clean"
+	echo "## [Controller] sys_clean"
 	echo "################################################################################"
 
 
@@ -2538,6 +2538,8 @@ function portal_do_clean () {
 	model_do_clean
 
 }
+
+
 
 
 ################################################################################
@@ -2761,6 +2763,62 @@ function portal_do_build () {
 
 
 ################################################################################
+## Model / model_do_test
+################################################################################
+
+function sys_test () {
+
+	echo "################################################################################"
+	echo "## [Controller] sys_test"
+	echo "################################################################################"
+
+	echo "==== develop test ===="
+
+	##mod_create_full_system
+
+	##mod_archive_system_to_iso
+
+}
+
+function mod_test () {
+
+	#mod_unmount_before_test
+
+	sys_test
+
+}
+
+function model_do_test () {
+
+	echo "################################################################################"
+	echo "## [Main] model_do_test"
+	echo "################################################################################"
+
+	echo "==== test ===="
+
+	mod_test
+
+}
+
+
+################################################################################
+## Portal / protal_do_test
+################################################################################
+
+function portal_do_test () {
+
+	core_check_permission
+
+	#mod_bind_signal
+
+	model_do_test
+
+}
+
+
+
+
+################################################################################
 ## Action
 ################################################################################
 
@@ -2770,17 +2828,24 @@ function action_prepare () {
 
 }
 
+function action_clean () {
+
+	portal_do_clean
+
+}
+
 function action_build () {
 
 	portal_do_build
 
 }
 
-function action_clean () {
+function action_test () {
 
-	portal_do_clean
+	portal_do_test
 
 }
+
 
 ################################################################################
 ## Action / Main
@@ -2832,10 +2897,7 @@ function __test__ () {
 
 	echo "__test__"
 
-
-	##mod_create_full_system
-
-	##mod_archive_system_to_iso
+	mod_test
 
 }
 

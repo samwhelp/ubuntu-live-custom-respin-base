@@ -32,3 +32,10 @@ build:
 clean:
 	@sudo ./do-build.sh clean
 .PHONY: clean
+
+
+
+
+test:
+	@sudo ./do-build.sh test
+.PHONY: test
