@@ -1535,12 +1535,12 @@ function model_do_fulfill_scripts () {
 	base_locale_default_locale
 
 
-	extend_installer_package_install
-	extend_installer_file_install
-
-
 	extend_master_package_install
 	extend_master_file_install
+
+
+	extend_installer_package_install
+	extend_installer_file_install
 
 
 	extend_hook_main_script_run
