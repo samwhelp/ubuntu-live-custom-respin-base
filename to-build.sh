@@ -51,4 +51,4 @@ GEAR_DIR_PATH="${BASE_DIR_PATH}"
 ## Main
 ################################################################################
 
-sudo "${GEAR_DIR_PATH}/do-build.sh"
+sudo "${GEAR_DIR_PATH}/do-build.sh" "${@}"

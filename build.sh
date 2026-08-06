@@ -125,4 +125,4 @@ id -g | tee "${RUNNER_GID_FILE_PATH}" > /dev/null 2>&1
 ## ## build and log
 ##
 
-"${GEAR_DIR_PATH}/to-build.sh" 2>&1 | tee "${LOG_FILE_PATH}"
+"${GEAR_DIR_PATH}/to-build.sh" "${@}" 2>&1 | tee "${LOG_FILE_PATH}"
