@@ -10,11 +10,18 @@ help:
 	@echo '	$$ make'
 	@echo '	$$ make help'
 	@echo
+	@echo '	$$ make prepare'
 	@echo '	$$ make build'
+	@echo '	$$ make clean'
 	@echo
 .PHONY: help
 
 
+
+
+prepare:
+	@sudo ./do-build.sh prepare
+.PHONY: prepare
 
 
 build:
@@ -23,5 +30,5 @@ build:
 
 
 clean:
-	sudo rm -f wget-log*
+	@sudo ./do-build.sh clean
 .PHONY: clean
