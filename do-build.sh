@@ -1532,9 +1532,6 @@ function model_do_fulfill_scripts () {
 	base_network_config_install
 
 
-	base_locale_default_locale
-
-
 	extend_master_package_install
 	extend_master_file_install
 
@@ -1549,6 +1546,9 @@ function model_do_fulfill_scripts () {
 	#base_dconf_package_install
 	#base_dconf_db_update
 	#base_gsettings_schema_compile
+
+
+	base_locale_default_locale
 
 
 	kernel_initramfs_update
