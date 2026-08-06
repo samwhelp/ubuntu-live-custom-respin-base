@@ -18,6 +18,9 @@ help:
 	@echo '	$$ make chroot'
 	@echo '	$$ make unmount'
 	@echo
+	@echo '	$$ make create-full-system'
+	@echo '	$$ make archive-system-to-iso'
+	@echo
 .PHONY: help
 
 
@@ -53,6 +56,18 @@ chroot:
 unmount:
 	@sudo ./do-build.sh unmount
 .PHONY: unmount
+
+
+
+
+create-full-system:
+	@sudo ./do-build.sh create_full_system
+.PHONY: create-full-system
+
+
+archive-system-to-iso:
+	@sudo ./do-build.sh archive_system_to_iso
+.PHONY: archive-system-to-iso
 
 
 

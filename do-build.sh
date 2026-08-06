@@ -2474,6 +2474,91 @@ function sys_create_filesystem_manifest_desktop_to_isodir () {
 
 
 ################################################################################
+## Model / model_do_create_full_system
+################################################################################
+
+function model_do_create_full_system () {
+
+	echo "################################################################################"
+	echo "## [Main] model_do_create_full_system"
+	echo "################################################################################"
+
+	echo "==== create_full_system ===="
+
+
+
+	##
+	## ## create folder
+	##
+
+	mod_master_initialize
+
+
+	##
+	## ## create system
+	##
+
+	mod_create_full_system
+
+}
+
+
+################################################################################
+## Portal / protal_do_create_full_system
+################################################################################
+
+function portal_do_create_full_system () {
+
+	core_check_permission
+
+	mod_bind_signal
+
+	model_do_create_full_system
+
+}
+
+
+
+
+################################################################################
+## Model / model_do_archive_system_to_iso
+################################################################################
+
+function model_do_archive_system_to_iso () {
+
+	echo "################################################################################"
+	echo "## [Main] model_do_archive_system_to_iso"
+	echo "################################################################################"
+
+	echo "==== archive_system_to_iso ===="
+
+	##
+	## ## archive
+	##
+
+	mod_archive_system_to_iso
+
+}
+
+
+################################################################################
+## Portal / protal_do_archive_system_to_iso
+################################################################################
+
+function portal_do_archive_system_to_iso () {
+
+	core_check_permission
+
+	mod_bind_signal
+
+	model_do_archive_system_to_iso
+
+}
+
+
+
+
+################################################################################
 ## Model / model_do_mount
 ################################################################################
 
@@ -2899,9 +2984,6 @@ function sys_test () {
 
 	echo "==== develop test ===="
 
-	##mod_create_full_system
-
-	##mod_archive_system_to_iso
 
 }
 
@@ -2946,6 +3028,18 @@ function portal_do_test () {
 ################################################################################
 ## Action
 ################################################################################
+
+function action_create_full_system () {
+
+	portal_do_create_full_system
+
+}
+
+function action_archive_system_to_iso () {
+
+	portal_do_archive_system_to_iso
+
+}
 
 function action_mount () {
 
