@@ -14,6 +14,10 @@ help:
 	@echo '	$$ make build'
 	@echo '	$$ make clean'
 	@echo
+	@echo '	$$ make mount'
+	@echo '	$$ make chroot'
+	@echo '	$$ make unmount'
+	@echo
 .PHONY: help
 
 
@@ -32,6 +36,23 @@ build:
 clean:
 	@sudo ./do-build.sh clean
 .PHONY: clean
+
+
+
+
+mount:
+	@sudo ./do-build.sh mount
+.PHONY: mount
+
+
+chroot:
+	@sudo ./do-build.sh chroot
+.PHONY: chroot
+
+
+unmount:
+	@sudo ./do-build.sh unmount
+.PHONY: unmount
 
 
 
