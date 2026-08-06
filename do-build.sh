@@ -1540,15 +1540,15 @@ function model_do_fulfill_scripts () {
 	extend_installer_file_install
 
 
+	base_locale_default_locale
+
+
 	extend_hook_main_script_run
 
 
 	#base_dconf_package_install
 	#base_dconf_db_update
 	#base_gsettings_schema_compile
-
-
-	base_locale_default_locale
 
 
 	kernel_initramfs_update
