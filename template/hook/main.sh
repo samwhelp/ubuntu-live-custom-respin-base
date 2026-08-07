@@ -140,6 +140,108 @@ function util_load_list () {
 
 
 ################################################################################
+## Module / Subs / Rundwn / Option
+################################################################################
+
+DEFAULT_SUBS_RUNDOWN_FILE_NAME="rundown.txt"
+SUBS_RUNDOWN_FILE_NAME="${SUBS_RUNDOWN_FILE_NAME:=$DEFAULT_SUBS_RUNDOWN_FILE_NAME}"
+SUBS_RUNDOWN_FILE_PATH="${SUBS_DIR_PATH}/${SUBS_RUNDOWN_FILE_NAME}"
+
+DEFAULT_SUBS_PORTAL_FILE_EXT_NAME="sh"
+SUBS_PORTAL_FILE_EXT_NAME="${SUBS_PORTAL_FILE_EXT_NAME:=$DEFAULT_SUBS_PORTAL_FILE_EXT_NAME}"
+
+
+################################################################################
+## Module / Subs / Rundwn / Main
+################################################################################
+
+##
+## The subs/rundown.txt file is used to control which modules are executed and their execution order.
+##
+
+function mod_subs_find_rundown_via_loader () {
+
+	local rundown_file_path="${SUBS_RUNDOWN_FILE_PATH}"
+
+	util_load_list "${rundown_file_path}"
+
+}
+
+function mod_subs_find_rundown_via_cat () {
+
+	local rundown_file_path="${SUBS_RUNDOWN_FILE_PATH}"
+
+	cat "${rundown_file_path}"
+
+}
+
+function mod_subs_find_rundown () {
+
+	##local subs_list=$(mod_subs_find_rundown_via_cat)
+	local subs_list=$(mod_subs_find_rundown_via_loader)
+
+	echo ${subs_list}
+
+}
+
+function mod_subs_exec_by_rundown () {
+
+	echo "################################################################################"
+	echo "## [Controller] mod_subs_exec_by_rundown"
+	echo "################################################################################"
+
+	echo "==== run subs ===="
+
+	local rundown_file_path="${SUBS_RUNDOWN_FILE_PATH}"
+
+	if ! [ -e "${rundown_file_path}" ]; then
+
+		echo "################################################################################"
+		echo "## [Warning] subs rundown file not exist"
+		echo "################################################################################"
+
+		echo "==== file not exist: ${rundown_file_path} ===="
+
+		return 0
+	fi
+
+
+	echo "==== run subs by subs/rundown.txt ===="
+
+	local subs_dir_path="${SUBS_DIR_PATH}"
+	local subs_list=$(mod_subs_find_rundown)
+	local sub_name
+	local sub_ext_name="${SUBS_PORTAL_FILE_EXT_NAME}"
+	local sub_portal_file_name
+	local sub_portal_file_path
+
+	for sub_name in ${subs_list}; do
+
+		sub_portal_file_name="${sub_name}.${sub_ext_name}"
+		sub_portal_file_path="${subs_dir_path}/${sub_portal_file_name}"
+
+		if [[ -x "${sub_portal_file_path}" ]]; then
+
+			echo "################################################################################"
+			echo "## [Subs] exec sub"
+			echo "################################################################################"
+
+			echo "==== sub: ${sub_name} ===="
+
+			pushd "${subs_dir_path}" > /dev/null
+
+			"${sub_portal_file_path}"
+
+			popd > /dev/null
+
+		fi
+
+	done
+
+}
+
+
+################################################################################
 ## Module / Mods / Rundwn / Option
 ################################################################################
 
@@ -249,9 +351,7 @@ function mod_mods_exec_by_rundown () {
 
 function mod_hook_subs () {
 
-	##mod_subs_exec_by_rundown
-
-	return 0
+	mod_subs_exec_by_rundown
 
 }
 
