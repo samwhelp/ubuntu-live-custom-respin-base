@@ -900,49 +900,11 @@ function core_machine_id_clear () {
 
 function core_apt_sources_config () {
 
-	echo "################################################################################"
-	echo "## [Worker] core_apt_sources_config"
-	echo "################################################################################"
+	core_apt_config_enable_recommends
 
-	echo "==== config apt soruces list using DEB822 format ===="
+	core_apt_config_no_snap
 
-	local target_ubuntu_codename="\${TARGET_UBUNTU_CODENAME}"
-	local target_ubuntu_mirror="\${TARGET_UBUNTU_MIRROR}"
-
-
-	if [ -f /etc/apt/sources.list ]; then
-		mkdir -p /etc/apt/backup
-		mv /etc/apt/sources.list /etc/apt/backup/sources.list
-	fi
-
-
-	mkdir -p /etc/apt/sources.list.d
-
-cat << __EOF__ > /etc/apt/sources.list.d/ubuntu.sources
-Types: deb
-URIs: \${target_ubuntu_mirror}
-Suites: \${target_ubuntu_codename}
-Components: main restricted universe multiverse
-Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-
-Types: deb
-URIs: \${target_ubuntu_mirror}
-Suites: \${target_ubuntu_codename}-updates
-Components: main restricted universe multiverse
-Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-
-Types: deb
-URIs: \${target_ubuntu_mirror}
-Suites: \${target_ubuntu_codename}-security
-Components: main restricted universe multiverse
-Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-
-Types: deb
-URIs: \${target_ubuntu_mirror}
-Suites: \${target_ubuntu_codename}-backports
-Components: main restricted universe multiverse
-Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
-__EOF__
+	core_apt_sources_config_for_ubuntu
 
 }
 
@@ -975,18 +937,93 @@ function core_apt_upgrade () {
 
 }
 
-function core_no_snap_config () {
+function core_apt_config_enable_recommends () {
 
 	echo "################################################################################"
-	echo "## [Worker] core_no_snap_config"
+	echo "## [Worker] core_apt_config_enable_recommends"
 	echo "################################################################################"
 
-	echo "==== config apt soruces preferences: /etc/apt/preferences.d/no-snap.pref ===="
+	echo "==== config apt conf: /etc/apt/apt.conf.d/99-enable-recommends ===="
 
-cat << __EOF__ | tee /etc/apt/preferences.d/no-snap.pref > /dev/null 2>&1
+	mkdir -p "/etc/apt/apt.conf.d"
+
+cat << __EOF__ | tee "/etc/apt/apt.conf.d/99-enable-recommends" > /dev/null 2>&1
+APT::Install-Recommends "true";
+__EOF__
+
+
+}
+
+function core_apt_config_no_snap () {
+
+	echo "################################################################################"
+	echo "## [Worker] core_apt_config_no_snap"
+	echo "################################################################################"
+
+	echo "==== config apt preferences: /etc/apt/preferences.d/no-snap.pref ===="
+
+	mkdir -p "/etc/apt/preferences.d"
+
+cat << __EOF__ | tee "/etc/apt/preferences.d/no-snap.pref" > /dev/null 2>&1
 Package: snapd
 Pin: release a=*
 Pin-Priority: -10
+__EOF__
+
+
+}
+
+
+##
+## ## Module / Apt Sources / Ubuntu
+##
+
+function core_apt_sources_config_for_ubuntu () {
+
+	echo "################################################################################"
+	echo "## [Worker] core_apt_sources_config_for_ubuntu"
+	echo "################################################################################"
+
+	echo "==== config apt soruces list using DEB822 format: /etc/apt/sources.list.d/ubuntu.sources ===="
+
+	local target_ubuntu_codename="\${TARGET_UBUNTU_CODENAME}"
+	local target_ubuntu_mirror="\${TARGET_UBUNTU_MIRROR}"
+
+
+	if [ -f "/etc/apt/sources.list" ]; then
+		mkdir -p "/etc/apt/backup"
+		mv "/etc/apt/sources.list" "/etc/apt/backup/sources.list"
+	fi
+
+	touch "/etc/apt/sources.list"
+
+
+	mkdir -p "/etc/apt/sources.list.d"
+
+cat << __EOF__ | tee "/etc/apt/sources.list.d/ubuntu.sources"
+Types: deb
+URIs: \${target_ubuntu_mirror}
+Suites: \${target_ubuntu_codename}
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+Types: deb
+URIs: \${target_ubuntu_mirror}
+Suites: \${target_ubuntu_codename}-updates
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+Types: deb
+URIs: \${target_ubuntu_mirror}
+Suites: \${target_ubuntu_codename}-security
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+Types: deb
+URIs: \${target_ubuntu_mirror}
+Suites: \${target_ubuntu_codename}-backports
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 __EOF__
 
 
@@ -1586,7 +1623,6 @@ function model_do_fulfill_scripts () {
 
 
 	core_apt_sources_config
-	core_no_snap_config
 	core_apt_upgrade
 
 
