@@ -249,8 +249,8 @@ DEFAULT_MODS_RUNDOWN_FILE_NAME="rundown.txt"
 MODS_RUNDOWN_FILE_NAME="${MODS_RUNDOWN_FILE_NAME:=$DEFAULT_MODS_RUNDOWN_FILE_NAME}"
 MODS_RUNDOWN_FILE_PATH="${MODS_DIR_PATH}/${MODS_RUNDOWN_FILE_NAME}"
 
-DEFAULT_MODS_INSTALL_FILE_NAME="install.sh"
-MODS_INSTALL_FILE_NAME="${MODS_INSTALL_FILE_NAME:=$DEFAULT_MODS_INSTALL_FILE_NAME}"
+DEFAULT_MODS_PORTAL_FILE_NAME="install.sh"
+MODS_PORTAL_FILE_NAME="${MODS_PORTAL_FILE_NAME:=$DEFAULT_MODS_PORTAL_FILE_NAME}"
 
 
 ################################################################################
@@ -310,19 +310,19 @@ function mod_mods_exec_by_rundown () {
 
 	echo "==== run mods by mods/rundown.txt ===="
 
-	local install_file_name="${MODS_INSTALL_FILE_NAME}"
+	local portal_file_name="${MODS_PORTAL_FILE_NAME}"
 	local mods_dir_path="${MODS_DIR_PATH}"
 	local mods_list=$(mod_mods_find_rundown)
 	local mod_name
 	local mod_dir_path
-	local mod_install_file_path
+	local mod_portal_file_path
 
 	for mod_name in ${mods_list}; do
 
 		mod_dir_path="${mods_dir_path}/${mod_name}"
-		mod_install_file_path="${mod_dir_path}/${install_file_name}"
+		mod_portal_file_path="${mod_dir_path}/${portal_file_name}"
 
-		if [[ -d "${mod_dir_path}" && -x "${mod_install_file_path}" ]]; then
+		if [[ -d "${mod_dir_path}" && -x "${mod_portal_file_path}" ]]; then
 
 			echo "################################################################################"
 			echo "## [Mods] exec mod"
@@ -332,7 +332,7 @@ function mod_mods_exec_by_rundown () {
 
 			pushd "${mod_dir_path}" > /dev/null
 
-			"${mod_install_file_path}"
+			"${mod_portal_file_path}"
 
 			popd > /dev/null
 
