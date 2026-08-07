@@ -900,11 +900,11 @@ function core_machine_id_clear () {
 
 function core_apt_sources_config () {
 
-	core_apt_config_enable_recommends
+	sys_apt_config_enable_recommends
 
-	core_apt_config_no_snap
+	sys_apt_config_no_snap
 
-	core_apt_sources_config_for_ubuntu
+	sys_apt_sources_config_for_ubuntu
 
 }
 
@@ -937,10 +937,10 @@ function core_apt_upgrade () {
 
 }
 
-function core_apt_config_enable_recommends () {
+function sys_apt_config_enable_recommends () {
 
 	echo "################################################################################"
-	echo "## [Worker] core_apt_config_enable_recommends"
+	echo "## [Worker] sys_apt_config_enable_recommends"
 	echo "################################################################################"
 
 	echo "==== config apt conf: /etc/apt/apt.conf.d/99-enable-recommends ===="
@@ -954,10 +954,10 @@ __EOF__
 
 }
 
-function core_apt_config_no_snap () {
+function sys_apt_config_no_snap () {
 
 	echo "################################################################################"
-	echo "## [Worker] core_apt_config_no_snap"
+	echo "## [Worker] sys_apt_config_no_snap"
 	echo "################################################################################"
 
 	echo "==== config apt preferences: /etc/apt/preferences.d/no-snap.pref ===="
@@ -978,10 +978,10 @@ __EOF__
 ## ## Module / Apt Sources / Ubuntu
 ##
 
-function core_apt_sources_config_for_ubuntu () {
+function sys_apt_sources_config_for_ubuntu () {
 
 	echo "################################################################################"
-	echo "## [Worker] core_apt_sources_config_for_ubuntu"
+	echo "## [Worker] sys_apt_sources_config_for_ubuntu"
 	echo "################################################################################"
 
 	echo "==== config apt soruces list using DEB822 format: /etc/apt/sources.list.d/ubuntu.sources ===="
