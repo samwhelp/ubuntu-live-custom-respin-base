@@ -17,34 +17,7 @@
 
 ## Subject
 
-* [Live Account](#live-account)
 * [Link](#link)
-
-
-
-
-## Live Account
-
-| Account  | Value  |
-| -------- | ------ |
-| Username | `live` |
-| Password |        |
-
-> No password set
-
-
-To change the password for the current account, you can run the following command:
-
-``` sh
-sudo passwd $(whoami)
-```
-
-
-To remove the password for the current account, you can run the following command:
-
-``` sh
-sudo passwd -d $(whoami)
-```
 
 
 
@@ -53,7 +26,6 @@ sudo passwd -d $(whoami)
 
 | Link | GitHub |
 | ---- | ------ |
-| [ubuntu-iso-builder-template](https://samwhelp.github.io/ubuntu-iso-builder-template/) | [GitHub](https://github.com/samwhelp/ubuntu-iso-builder-template) |
 | [Ubuntu Adjustment](https://samwhelp.github.io/ubuntu-adjustment/) | [GitHub](https://github.com/samwhelp/ubuntu-adjustment) |
 
 
