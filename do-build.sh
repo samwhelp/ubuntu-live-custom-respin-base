@@ -1413,7 +1413,7 @@ function extend_master_package_install () {
 	echo "==== master install packages ===="
 
 	local package_install_list=\$(sys_master_find_package_install_list)
-	local run_cmd="apt-get install -y --install-recommends \${package_install_list}"
+	local run_cmd="apt-get install -y --no-install-recommends \${package_install_list}"
 
 	echo \${run_cmd}
 	\${run_cmd}
