@@ -1645,6 +1645,11 @@ function model_do_fulfill_scripts () {
 	extend_master_file_install
 
 
+	#base_dconf_package_install
+	#base_dconf_db_update
+	#base_gsettings_schema_compile
+
+
 	extend_installer_package_install
 	extend_installer_file_install
 
